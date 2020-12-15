@@ -89,7 +89,7 @@ var getLength = function() {
 }
 
 whichCharacters();
-//getLength();
+getLength();
 
 
 // Write password to the #password input
