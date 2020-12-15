@@ -5,7 +5,7 @@ var generateBtn = document.querySelector("#generate");
 var upperAlphabetList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var lowerAlphabetList = "abcdefghijklmnopqrstuvwxyz"
 var numList = "1234567890"
-var specialCharsList = "!\"#$%& '()*+,-./:;<=>?@[\\]^_`{|}~"
+var specialCharsList = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 
 /* picks a random integer from 0 to length of string
 var randomIndexInString = function(str) {
@@ -20,7 +20,7 @@ var randomCharInString = function (str) {
 }
 
 // picks a random integer from 0 (inclusive) to num (exclusive) 
-var randomToNumber = function (num) {
+var randomNumber = function (num) {
   return Math.floor(Math.random() * num);
 }
 
@@ -49,6 +49,7 @@ console.log(randomToNumber(0))
 // if list hasn't been picked yet, keep adding random strings
 // if newPass is full but one list wasn't picked, kick out the first character of the password
 
+// find which character types to include in password
 var whichCharacters = function() {
   var characterSet = [];
     if (
@@ -77,6 +78,7 @@ var whichCharacters = function() {
     }
 }
 
+// find password length
 var getLength = function() {
   var passLength = parseInt(window.prompt("How many characters should your password have? Please enter a number between 8 and 128."))
   if (passLength < 8 || passLength > 128 || isNaN(passLength)) {
@@ -84,15 +86,31 @@ var getLength = function() {
     getLength();
   }
   else {
-    console.log(passLength)
+    // console.log(passLength)
     return passLength;
   }
 }
 
-whichCharacters();
-getLength();
+// generate password function
+var generatePassword = function() {
+  var charArray = whichCharacters();
+  var passwordLength = getLength();
+  var password = "";
 
-
+  // get at least one character from each character list
+  for (var i = 0; i < charArray.length; i++) {
+    //debugger;
+    password = password.concat(randomCharInString(charArray[i]));
+  }
+  // append a random character from a random list for rest of password
+  while (password.length < passwordLength) {
+    //debugger;
+    pickedCharset = charArray[randomNumber(charArray.length)];
+    password = password.concat(randomCharInString(pickedCharset));
+  }
+  console.log(password);
+  return password;
+}
 
 // Write password to the #password input
 function writePassword() {
