@@ -77,7 +77,19 @@ var whichCharacters = function() {
       return characterSet;
 }
 
+var getLength = function() {
+  var passLength = window.prompt("How many characters should your password have? Please enter a number between 8 and 128.")
+  if (passLength < 8 || passLength > 128 || typeof passLength != "number") {
+    window.alert("Please enter a valid number.");
+    getLength();
+  }
+  else {
+    return passLength;
+  }
+}
+
 whichCharacters();
+//getLength();
 
 
 // Write password to the #password input
