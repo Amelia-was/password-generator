@@ -67,7 +67,6 @@ var whichCharacters = function() {
       window.confirm("Select OK to include special characters in your password")) {
       characterSet.push(specialCharsList);
     }
-    // debugger;
     if (characterSet.length === 0) {
       window.alert("Please select at least one character type.");
       whichCharacters();
@@ -77,6 +76,7 @@ var whichCharacters = function() {
       return characterSet;
 }
 
+/*
 var getLength = function() {
   var passLength = window.prompt("How many characters should your password have? Please enter a number between 8 and 128.")
   if (passLength < 8 || passLength > 128 || typeof passLength != "number") {
@@ -86,10 +86,11 @@ var getLength = function() {
   else {
     return passLength;
   }
-}
+}*/
 
 whichCharacters();
-getLength();
+//getLength();
+
 
 
 // Write password to the #password input
