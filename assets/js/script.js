@@ -58,16 +58,45 @@ var getLength = function() {
   }
 }
 
+// replace random characters in password with one random character from each list
+// ensures at least one character from each list is included
+var replaceRandomChar = function(passArray, array) {
+  var passIndexList = [];
+  for (var i = 0; i < passArray.length; i++) {
+    passIndexList.push(i);
+  }
+
+  var randomIndex = randomNumber(passIndexList.length);
+  var valAtRandomIndex = passIndexList[randomIndex];
+
+  for (var i = 0; i < array.length; i++) {
+    passArray[valAtRandomIndex] = randomCharInString(array[i]);
+    passIndexList.splice(randomIndex, 1);
+    randomIndex = randomNumber(passIndexList.length);
+    valAtRandomIndex = passIndexList[randomIndex];
+  }
+
+  return passArray;
+}
+
 // generate password function
 var generatePassword = function() {
   var passwordLength = getLength();
   var charArray = whichCharacters();
   var password = "";
+  var passwordArray = [];
 
   // append a random character from a random list until password length achieved
   for (var i = 0; i < passwordLength; i++) {
     pickedCharset = charArray[randomNumber(charArray.length)];
-    password = password.concat(randomCharInString(pickedCharset));
+    randomChar = randomCharInString(pickedCharset);
+    passwordArray.push(randomChar);
+  }
+
+  passwordArray = replaceRandomChar(passwordArray, charArray);
+
+  for (var i = 0; i < passwordLength; i++) {
+    password = password.concat(passwordArray[i]);
   }
 
   return password;
