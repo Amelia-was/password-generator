@@ -7,47 +7,16 @@ var lowerAlphabetList = "abcdefghijklmnopqrstuvwxyz"
 var numList = "1234567890"
 var specialCharsList = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 
-/* picks a random integer from 0 to length of string
-var randomIndexInString = function(str) {
-  return Math.floor(Math.random() * str.length);
-} 
-*/
-
 // picks a random character in a string
-var randomCharInString = function (str) {
+var randomCharInString = function(str) {
   var index = Math.floor(Math.random() * str.length);
   return str[index];
 }
 
 // picks a random integer from 0 (inclusive) to num (exclusive) 
-var randomNumber = function (num) {
+var randomNumber = function(num) {
   return Math.floor(Math.random() * num);
 }
-
-/*
-console.log(randomCharInString("12345"))
-console.log(randomCharInString("asdfghjkl"))
-console.log(randomCharInString("0"))
-console.log(randomCharInString(upperAlphabetList))
-console.log(randomCharInString(lowerAlphabetList))
-console.log(randomCharInString(numList))
-console.log(randomCharInString(specialCharsList))
-
-console.log(randomToNumber(4))
-console.log(randomToNumber(10))
-console.log(randomToNumber(1))
-console.log(randomToNumber(2))
-console.log(randomToNumber(0))
-*/
-
-// get passLength
-// get which character types
-// create array w/ character types
-// get random number of length of array
-// pick that array
-// pick random character and append it to newPass
-// if list hasn't been picked yet, keep adding random strings
-// if newPass is full but one list wasn't picked, kick out the first character of the password
 
 // find which character types to include in password
 var whichCharacters = function() {
@@ -73,42 +42,34 @@ var whichCharacters = function() {
       whichCharacters();
     } 
     else {
-      console.log(characterSet);
       return characterSet;
     }
 }
 
 // find password length
 var getLength = function() {
-  var passLength = parseInt(window.prompt("How many characters should your password have? Please enter a number between 8 and 128."))
+  var passLength = parseInt(window.prompt("How many characters would you like your password to have? Please enter a number between 8 and 128."))
   if (passLength < 8 || passLength > 128 || isNaN(passLength)) {
     window.alert("Please enter a valid number.");
     getLength();
   }
   else {
-    // console.log(passLength)
     return passLength;
   }
 }
 
 // generate password function
 var generatePassword = function() {
-  var charArray = whichCharacters();
   var passwordLength = getLength();
+  var charArray = whichCharacters();
   var password = "";
 
-  // get at least one character from each character list
-  for (var i = 0; i < charArray.length; i++) {
-    //debugger;
-    password = password.concat(randomCharInString(charArray[i]));
-  }
-  // append a random character from a random list for rest of password
-  while (password.length < passwordLength) {
-    //debugger;
+  // append a random character from a random list until password length achieved
+  for (var i = 0; i < passwordLength; i++) {
     pickedCharset = charArray[randomNumber(charArray.length)];
     password = password.concat(randomCharInString(pickedCharset));
   }
-  console.log(password);
+
   return password;
 }
 
